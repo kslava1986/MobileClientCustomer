@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="222dp"
+        app:srcCompat="@drawable/pp_log_old" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="168dp"
+        app:srcCompat="@drawable/pp_log_new" />
+
+    <Button
+        android:id="@+id/button_start"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal|center_vertical|top"
+        android:layout_margin="20dp"
+        android:background="@drawable/button_main"
+        android:bottomLeftRadius="100dp"
+        android:bottomRightRadius="100dp"
+        android:onClick="buttonClickStart"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:text="Замовлення"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:topLeftRadius="100dp"
+        android:topRightRadius="100dp" />
+        android:textStyle="italic"
+        />
+</LinearLayout>
