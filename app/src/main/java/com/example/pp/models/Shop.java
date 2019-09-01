@@ -1,22 +1,21 @@
 package com.example.pp.models;
 
 public class Shop {
-    private int id;
+    private long id;
     private String name;
     private String tel;
-    Shop() {
-    }
-    Shop(int id,String name,String tel){
-        this.id=id;
-        this.name=name;
-        this.tel=tel;
+
+    public Shop(int id, String name, String tel) {
+        this.id = id;
+        this.name = name;
+        this.tel = tel;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

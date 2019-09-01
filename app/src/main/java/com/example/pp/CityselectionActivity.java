@@ -9,21 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.pp.models.Shop;
+import com.example.pp.models.Store;
+import com.example.pp.models.UserInMemoryStore;
+
 public class CityselectionActivity extends AppCompatActivity {
-public class Shop{
-    String name;
-    String tel;
-    Shop() {
-    }
-    Shop(String name,String tel){
-        this.name=name;
-        this.tel=tel;
-    }
-    String getName()
-    {return name;}
-    String getTel()
-    {return tel;}
-}
+
     String s1 = "Київська,88       (0988467236)";
     String s2 = "Бульвар Польський 13а (0983995114)";
     String s3 = "Хлібна,39/19          (0971146295)";
@@ -33,12 +24,15 @@ public class Shop{
     String s7 = "Івана Мазепи,5        (0985660818)";
 
     String[] shops = {s1,s2,s3,s4,s5,s6,s7};
+    private final Store<Shop> store = new UserInMemoryStore();
 
     //String[] shops = { "Київська,88", "Бульвар Польський,13а", "Хлібна,39/19", "Станишівський,3/2", "пр.Миру,61/2", "Вільський Шлях,14"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cityselection);
+
+
 // находим список
         ListView lvMain = (ListView) findViewById(R.id.shopsListView);
 
@@ -49,7 +43,11 @@ public class Shop{
         // присваиваем адаптер списку
         lvMain.setAdapter(adapter);
 
+        //додати onClickListener to adapter
+        //call another screen
+
     }
+    // у новий екран
     public void dial(View v) {
         String toDial="tel:0638237775";
         startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(toDial)));
