@@ -36,11 +36,23 @@
 
     <ListView
         android:id="@+id/shopsListView"
-        android:layout_width="259dp"
-        android:layout_height="279dp"
+        android:layout_width="179dp"
+        android:layout_height="127dp"
         android:layout_marginBottom="8dp"
         android:background="#ffffff"
         app:layout_constraintBottom_toTopOf="@+id/callButton" />
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#ffffff"
+        android:layout_height="match_parent"/>
 
     <ImageButton
         android:id="@+id/callButton"
@@ -52,10 +64,10 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/button_round"
+        android:onClick="dial"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/sym_action_call"
-        android:onClick="dial"/>
+        app:srcCompat="@android:drawable/sym_action_call" />
 
 </LinearLayout>
