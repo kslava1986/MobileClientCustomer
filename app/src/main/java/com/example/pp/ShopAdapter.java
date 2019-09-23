@@ -25,7 +25,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
         public ShopViewHolder(@NonNull View itemView) {
             super(itemView);
             nameText = itemView.findViewById(R.id.address);
-            //tel
+            telText = itemView.findViewById(R.id.telephone);
         }
     }
     @NonNull

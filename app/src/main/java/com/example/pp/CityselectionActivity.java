@@ -57,8 +57,6 @@ public class CityselectionActivity extends AppCompatActivity {
 
     private final Store<Shop> store = new UserInMemoryStore();
 
-    //String[] shops = { "Київська,88", "Бульвар Польський,13а", "Хлібна,39/19", "Станишівський,3/2", "пр.Миру,61/2", "Вільський Шлях,14"};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,13 +67,19 @@ public class CityselectionActivity extends AppCompatActivity {
         // TODO: 19.09.2019 перемістити код у аплікейшн клас
         ShopDBHelper dbHelper = new ShopDBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
-        //--
+        //
+//        addItem("Київська,88","0988467236");
+//        addItem("Бульвар Польський 13а","0983995114");
+//        addItem("Хлібна,39/19","0971146295");
+//        addItem("М-н Станишівський,3/2","0971084756");
+//        addItem("Вільський Шлях,14","0985660818");
+//        addItem("Івана Мазепи,5","0985660818");
 
+        //--
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new ShopAdapter(this, getAllItems());
         recyclerView.setAdapter(mAdapter);
-
 
         buttonCall.setOnClickListener(new View.OnClickListener() {
             @Override

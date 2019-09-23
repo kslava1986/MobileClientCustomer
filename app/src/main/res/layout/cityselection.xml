@@ -52,7 +52,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:background="#ffffff"
-        android:layout_height="match_parent"/>
+        android:layout_height="250dp"/>
 
     <ImageButton
         android:id="@+id/callButton"
