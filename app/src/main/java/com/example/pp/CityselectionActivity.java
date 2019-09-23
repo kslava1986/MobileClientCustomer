@@ -26,6 +26,11 @@ import com.example.pp.models.UserInMemoryStore;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.provider.BaseColumns._ID;
+import static com.example.pp.ShopContract.ShopEntry.COLUMN_NAME;
+import static com.example.pp.ShopContract.ShopEntry.COLUMN_TEL;
+import static com.example.pp.ShopContract.ShopEntry.TABLE_NAME;
+
 public class CityselectionActivity extends AppCompatActivity {
 
     private SQLiteDatabase mDatabase;
@@ -38,10 +43,9 @@ public class CityselectionActivity extends AppCompatActivity {
     String s5 = "пр-т Миру,61/2        (0971084756)";
     String s6 = "Вільський Шлях,14     (0985660818)";
     String s7 = "Івана Мазепи,5        (0985660818)";
-
-
     String[] shops = {s1, s2, s3, s4, s5, s6, s7};
     List<Shop> shopsList = convertStringToShop(shops);
+
 
     private List<Shop> convertStringToShop(String[] shops) {
         List<Shop> shopsList = new ArrayList<>();
@@ -72,6 +76,7 @@ public class CityselectionActivity extends AppCompatActivity {
         mAdapter = new ShopAdapter(this, getAllItems());
         recyclerView.setAdapter(mAdapter);
 
+
         buttonCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +85,7 @@ public class CityselectionActivity extends AppCompatActivity {
         });
         // TODO: 12.09.2019 Запуск завантаження списку магазинів у окремому потоці за допомогою Retrofit
         // TODO: 12.09.2019 використати RecyclerViewAdapter замість ArrayAdapter
-// находим список
+        // находим список
         ListView lvMain = (ListView) findViewById(R.id.shopsListView);
 
         // создаем адаптер
@@ -100,7 +105,7 @@ public class CityselectionActivity extends AppCompatActivity {
         startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(toDial)));
     }
 
-    private void addItem(String name, String tel) {
+    public void addItem(String name, String tel) {
         if (name.trim().length() == 0) return;
 
         // создаем объект для данных
@@ -111,14 +116,14 @@ public class CityselectionActivity extends AppCompatActivity {
         contentValues.put(ShopContract.ShopEntry.COLUMN_TEL, tel);
 
         // подключаемся к БД
-        mDatabase.insert(ShopContract.ShopEntry.TABLE_NAME, null, contentValues);
+        mDatabase.insert(TABLE_NAME, null, contentValues);
         mAdapter.swapCursor(getAllItems());
         //mEditTextName.getText().clear;    //после записи очищаем поле
     }
 
     protected Cursor getAllItems() {
         return mDatabase.query(
-                ShopContract.ShopEntry.TABLE_NAME,
+                TABLE_NAME,
                 null,
                 null,
                 null,

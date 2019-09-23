@@ -1,5 +1,6 @@
 package com.example.pp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -20,7 +21,7 @@ public class ShopDBHelper extends SQLiteOpenHelper {
                 ShopEntry.TABLE_NAME + " (" +
                 ShopEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 ShopEntry.COLUMN_NAME + " TEXT NOT NULL, " +
-                ShopEntry.COLUMN_TEL + "INTEGER NOT NULL, " +
+                ShopEntry.COLUMN_TEL + " INTEGER NOT NULL, " +
                 ShopEntry.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                 ");";
         db.execSQL(SQL_CREATE_SHOPLIST_TABLE);
@@ -31,4 +32,5 @@ public class ShopDBHelper extends SQLiteOpenHelper {
 db.execSQL("DROP TABLE IF EXISTS " + ShopEntry.TABLE_NAME);
 onCreate(db);
     }
+
 }
