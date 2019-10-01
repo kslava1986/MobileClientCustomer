@@ -36,24 +36,24 @@ public class CityselectionActivity extends AppCompatActivity {
     private SQLiteDatabase mDatabase;
     private ShopAdapter mAdapter;
     // TODO: 12.09.2019 Замінити на об'єкти
-    String s1 = "Київська,88       (0988467236)";
-    String s2 = "Бульвар Польський 13а (0983995114)";
-    String s3 = "Хлібна,39/19          (0971146295)";
-    String s4 = "М-н Станишівський,3/2 (0986408197)";
-    String s5 = "пр-т Миру,61/2        (0971084756)";
-    String s6 = "Вільський Шлях,14     (0985660818)";
-    String s7 = "Івана Мазепи,5        (0985660818)";
-    String[] shops = {s1, s2, s3, s4, s5, s6, s7};
-    List<Shop> shopsList = convertStringToShop(shops);
+//    String s1 = "Київська,88           (0988467236)";
+//    String s2 = "Бульвар Польський 13а (0983995114)";
+//    String s3 = "Хлібна,39/19          (0971146295)";
+//    String s4 = "М-н Станишівський,3/2 (0986408197)";
+//    String s5 = "пр-т Миру,61/2        (0971084756)";
+//    String s6 = "Вільський Шлях,14     (0985660818)";
+//    String s7 = "Івана Мазепи,5        (0985660818)";
+//    String[] shops = {s1, s2, s3, s4, s5, s6, s7};
+//    List<Shop> shopsList = convertStringToShop(shops);
 
 
-    private List<Shop> convertStringToShop(String[] shops) {
-        List<Shop> shopsList = new ArrayList<>();
-        for (int i = 0; i < shops.length; i++) {
-            shopsList.add(new Shop(i, shops[i], ""));
-        }
-        return shopsList;
-    }
+//    private List<Shop> convertStringToShop(String[] shops) {
+//        List<Shop> shopsList = new ArrayList<>();
+//        for (int i = 0; i < shops.length; i++) {
+//            shopsList.add(new Shop(i, shops[i], ""));
+//        }
+//        return shopsList;
+//    }
 
     private final Store<Shop> store = new UserInMemoryStore();
 
@@ -68,12 +68,12 @@ public class CityselectionActivity extends AppCompatActivity {
         ShopDBHelper dbHelper = new ShopDBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
         //
-//        addItem("Київська,88","0988467236");
-//        addItem("Бульвар Польський 13а","0983995114");
-//        addItem("Хлібна,39/19","0971146295");
-//        addItem("М-н Станишівський,3/2","0971084756");
-//        addItem("Вільський Шлях,14","0985660818");
-//        addItem("Івана Мазепи,5","0985660818");
+          addItem("Київська,88","0988467236");
+          addItem("Бульвар Польський 13а","0983995114");
+          addItem("Хлібна,39/19","0971146295");
+          addItem("М-н Станишівський,3/2","0971084756");
+          addItem("Вільський Шлях,14","0985660818");
+          addItem("Івана Мазепи,5","0985660818");
 
         //--
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -90,14 +90,13 @@ public class CityselectionActivity extends AppCompatActivity {
         // TODO: 12.09.2019 Запуск завантаження списку магазинів у окремому потоці за допомогою Retrofit
         // TODO: 12.09.2019 використати RecyclerViewAdapter замість ArrayAdapter
         // находим список
-        ListView lvMain = (ListView) findViewById(R.id.shopsListView);
+        //  ListView lvMain = (ListView) findViewById(R.id.shopsListView);
 
         // создаем адаптер
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, shops);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, shops);
 
         // присваиваем адаптер списку
-        lvMain.setAdapter(adapter);
+        //lvMain.setAdapter(adapter);
 
         //додати onClickListener to adapter
         //call another screen
@@ -111,14 +110,11 @@ public class CityselectionActivity extends AppCompatActivity {
 
     public void addItem(String name, String tel) {
         if (name.trim().length() == 0) return;
-
         // создаем объект для данных
         ContentValues contentValues = new ContentValues();
-
         // получаем данные из полей ввода
         contentValues.put(ShopContract.ShopEntry.COLUMN_NAME, name);
         contentValues.put(ShopContract.ShopEntry.COLUMN_TEL, tel);
-
         // подключаемся к БД
         mDatabase.insert(TABLE_NAME, null, contentValues);
         mAdapter.swapCursor(getAllItems());

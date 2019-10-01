@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="6dp">
 
     <TextView
@@ -17,7 +17,7 @@
         android:layout_height="30sp"
         android:layout_marginStart="10dp"
         android:text="телефон"
-        android:textSize="20sp" />
+        android:textSize="20sp"/>
 
 
 </LinearLayout>

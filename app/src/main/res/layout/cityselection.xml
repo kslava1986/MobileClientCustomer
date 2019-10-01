@@ -34,13 +34,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <ListView
-        android:id="@+id/shopsListView"
-        android:layout_width="179dp"
-        android:layout_height="127dp"
-        android:layout_marginBottom="8dp"
-        android:background="#ffffff"
-        app:layout_constraintBottom_toTopOf="@+id/callButton" />
+<!--    <ListView-->
+<!--        android:id="@+id/shopsListView"-->
+<!--        android:layout_width="179dp"-->
+<!--        android:layout_height="127dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        android:background="#ffffff"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/callButton" />-->
 
 
 
