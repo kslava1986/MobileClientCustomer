@@ -100,6 +100,6 @@ public class CityselectionActivity extends AppCompatActivity {
     // виклик дзвінка
     public void dial(String tel) {
         Uri uri = Uri.parse(String.format("tel:%s", tel));
-        startActivity(new Intent(Intent.ACTION_CALL, uri));
+        startActivity(new Intent(Intent.ACTION_DIAL, uri));
     }
 }
