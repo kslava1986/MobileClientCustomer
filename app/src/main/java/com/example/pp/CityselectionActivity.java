@@ -12,23 +12,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pp.models.Shop;
 import com.example.pp.models.Store;
 import com.example.pp.models.UserInMemoryStore;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.provider.BaseColumns._ID;
-import static com.example.pp.ShopContract.ShopEntry.COLUMN_NAME;
-import static com.example.pp.ShopContract.ShopEntry.COLUMN_TEL;
 import static com.example.pp.ShopContract.ShopEntry.TABLE_NAME;
 
 public class CityselectionActivity extends AppCompatActivity {
@@ -40,20 +29,11 @@ public class CityselectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cityselection);
-        ImageButton buttonCall = findViewById(R.id.callButton);
 
         // создаем объект для создания и управления версиями БД
         // TODO: 19.09.2019 перемістити код у аплікейшн клас
         ShopDBHelper dbHelper = new ShopDBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
-        //
-            addItem("Київська,88","0988467236");
-//          addItem("Бульвар Польський 13а","0983995114");
-//          addItem("Хлібна,39/19","0971146295");
-//          addItem("М-н Станишівський,3/2","0971084756");
-//          addItem("Вільський Шлях,14","0985660818");
-//          addItem("Івана Мазепи,5","0985660818");
-
         //--
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         // слухач RecyclerView
@@ -61,7 +41,11 @@ public class CityselectionActivity extends AppCompatActivity {
                 new RecyclerItemClickListener(this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         // do whatever
-                            dial(view);
+//                        Toast toast = Toast.makeText(getApplicationContext(),
+//                                "Пора покормить кота!", Toast.LENGTH_SHORT);
+//                        toast.show();
+                        TextView textView = (TextView)view.findViewById(R.id.telephone);
+                            dial(textView.getText().toString());
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
@@ -73,19 +57,9 @@ public class CityselectionActivity extends AppCompatActivity {
         mAdapter = new ShopAdapter(this, getAllItems());
         recyclerView.setAdapter(mAdapter);
 
-        buttonCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dial(v);
-            }
-        });
+        //заповнення бази тестовими даними
+        saveToBaseTestData();
         // TODO: 12.09.2019 Запуск завантаження списку магазинів у окремому потоці за допомогою Retrofit
-    }
-
-    // метод привязується до кнопки
-    public void dial(View v) {
-        String toDial = "tel:0638237775";
-        startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(toDial)));
     }
 
     public void addItem(String name, String tel) {
@@ -98,7 +72,6 @@ public class CityselectionActivity extends AppCompatActivity {
         // подключаемся к БД
         mDatabase.insert(TABLE_NAME, null, contentValues);
         mAdapter.swapCursor(getAllItems());
-        //mEditTextName.getText().clear;    //после записи очищаем поле
     }
 
     protected Cursor getAllItems() {
@@ -111,5 +84,22 @@ public class CityselectionActivity extends AppCompatActivity {
                 null,
                 ShopContract.ShopEntry.COLUMN_TIMESTAMP + " DESC"
         );
+    }
+//заполвнив тестовими даними
+    private void saveToBaseTestData(){
+        mDatabase.execSQL(ShopContract.ShopEntry.SQL_DROP_SHOPLIST_TABLE);
+        mDatabase.execSQL(ShopContract.ShopEntry.SQL_CREATE_SHOPLIST_TABLE);
+          addItem("Київська,88","0988467236");
+          addItem("Бульвар Польський 13а","0983995114");
+          addItem("Хлібна,39/19","0971146295");
+          addItem("М-н Станишівський,3/2","0971084756");
+          addItem("Вільський Шлях,14","0985660818");
+          addItem("Івана Мазепи,5","0985660818");
+    }
+
+    // виклик дзвінка
+    public void dial(String tel) {
+        Uri uri = Uri.parse(String.format("tel:%s", tel));
+        startActivity(new Intent(Intent.ACTION_CALL, uri));
     }
 }

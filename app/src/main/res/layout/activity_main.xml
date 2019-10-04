@@ -18,24 +18,41 @@
         android:layout_height="168dp"
         app:srcCompat="@drawable/pp_log_new" />
 
-    <Button
-        android:id="@+id/button_start"
-        android:layout_width="300dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center_horizontal|center_vertical|top"
+<!--    <Button-->
+<!--        android:id="@+id/button_start"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:layout_gravity="center_horizontal|center_vertical|top"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:background="@drawable/button_main"-->
+<!--        android:bottomLeftRadius="100dp"-->
+<!--        android:bottomRightRadius="100dp"-->
+<!--        android:onClick="buttonClickStart"-->
+<!--        android:shadowColor="@color/colorAccent"-->
+<!--        android:shadowDx="0"-->
+<!--        android:shadowDy="0"-->
+<!--        android:text="Замовлення"-->
+<!--        android:textColor="#FFFFFF"-->
+<!--        android:textSize="40sp"-->
+<!--        android:topLeftRadius="100dp"-->
+<!--        android:topRightRadius="100dp" />-->
+<!--        android:textStyle="italic"-->
+<!--        />-->
+    <ImageButton
+        android:id="@+id/callButton"
         android:layout_margin="20dp"
-        android:background="@drawable/button_main"
-        android:bottomLeftRadius="100dp"
-        android:bottomRightRadius="100dp"
-        android:onClick="buttonClickStart"
-        android:shadowColor="@color/colorAccent"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:text="Замовлення"
-        android:textColor="#FFFFFF"
-        android:textSize="40sp"
-        android:topLeftRadius="100dp"
-        android:topRightRadius="100dp" />
-        android:textStyle="italic"
-        />
+        android:layout_width="100dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center_horizontal|center_vertical|top"
+        android:background="@drawable/button_round"
+        android:onClick="dial"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/sym_action_call" />
 </LinearLayout>

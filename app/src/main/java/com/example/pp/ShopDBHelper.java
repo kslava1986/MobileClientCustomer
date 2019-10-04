@@ -17,19 +17,12 @@ public class ShopDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        final String SQL_CREATE_SHOPLIST_TABLE = "CREATE TABLE " +
-                ShopEntry.TABLE_NAME + " (" +
-                ShopEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                ShopEntry.COLUMN_NAME + " TEXT NOT NULL, " +
-                ShopEntry.COLUMN_TEL + " TEXT NOT NULL, " +
-                ShopEntry.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
-                ");";
-        db.execSQL(SQL_CREATE_SHOPLIST_TABLE);
+        db.execSQL(ShopEntry.SQL_CREATE_SHOPLIST_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + ShopEntry.TABLE_NAME);
+        db.execSQL(ShopEntry.SQL_DROP_SHOPLIST_TABLE);
         onCreate(db);
     }
 
