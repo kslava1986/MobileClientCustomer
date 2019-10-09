@@ -19,5 +19,6 @@ public class ShopContract {
                         ");";
         // запрос видалення таблиці
         public static final String SQL_DROP_SHOPLIST_TABLE = "DROP TABLE IF EXISTS " + ShopEntry.TABLE_NAME;
+
     }
 }
