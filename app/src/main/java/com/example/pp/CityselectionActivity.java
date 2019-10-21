@@ -37,12 +37,10 @@ public class CityselectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cityselection);
-
         // создаем объект для создания и управления версиями БД
         // TODO: 19.09.2019 перемістити код у аплікейшн клас
         ShopDBHelper dbHelper = new ShopDBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
-        //заповнення бази тестовими даними
         // TODO: 12.09.2019 Запуск завантаження списку магазинів у окремому потоці за допомогою Retrofit
         loadData();
         //--
@@ -69,7 +67,8 @@ public class CityselectionActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new ShopAdapter(this, getAllItems());
         recyclerView.setAdapter(mAdapter);
-
+        //заповнення бази тестовими даними
+        saveToBaseDefaultData();
 
     }
 

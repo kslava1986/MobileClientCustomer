@@ -1,5 +1,6 @@
 package com.example.pp;
 
+import com.example.pp.models.Product;
 import com.example.pp.models.Shop;
 
 import java.util.List;
@@ -12,5 +13,5 @@ public interface ApiService {
     Call<List<Shop>> getShops();
 
     @GET("/products")
-    Call<List<Shop>> getProductsByShop(int shopId);// @param
+    Call<List<Product>> getProductsByShop(int shopId);// @param
 }

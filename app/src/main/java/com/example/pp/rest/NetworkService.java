@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkService {
     private static NetworkService mInstance;
-    private static final String BASE_URL = "http://localhost:9090";
+    private static final String BASE_URL = "http://213.108.47.244:9090";
     private Retrofit mRetrofit;
 
     private NetworkService() {

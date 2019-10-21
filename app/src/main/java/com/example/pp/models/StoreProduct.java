@@ -1,12 +1,11 @@
 package com.example.pp.models;
 
-
 import java.util.List;
 import java.util.Optional;
 
-public interface Store<Entity> {
+public interface StoreProduct<Entity> {
 
-    Optional<Long> create(Shop shop);
+    Optional<Long> create(Product product);
 
     List<Entity> readAll();
 
