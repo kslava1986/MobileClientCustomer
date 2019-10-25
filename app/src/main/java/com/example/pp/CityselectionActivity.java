@@ -41,26 +41,28 @@ public class CityselectionActivity extends AppCompatActivity {
         // TODO: 19.09.2019 перемістити код у аплікейшн клас
         ShopDBHelper dbHelper = new ShopDBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
-        // TODO: 12.09.2019 Запуск завантаження списку магазинів у окремому потоці за допомогою Retrofit
         loadData();
-        //--
         recyclerView = findViewById(R.id.recyclerview);
-        // слухач RecyclerView
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        // do whatever
-//                        Toast toast = Toast.makeText(getApplicationContext(),
-//                                "Пора покормить кота!", Toast.LENGTH_SHORT);
-//                        toast.show();
-                        TextView textView = (TextView) view.findViewById(R.id.telephone);
-                        dial(textView.getText().toString());
+                        TextView textViewTel = (TextView) view.findViewById(R.id.telephone);
+                        TextView textViewAddress = (TextView) view.findViewById(R.id.address);
+                        Intent intent = new Intent(getApplicationContext(),DialogActivity.class);
+                        intent.putExtra("address",textViewAddress.getText().toString());
+                        intent.putExtra("tel",textViewTel.getText().toString());
+                        startActivity(intent);
+
+
+
+                        //dial(textViewTel.getText().toString());
                     }
 
                     @Override
                     public void onLongItemClick(View view, int position) {
-                        // do whatever
+                        TextView textViewTel = (TextView) view.findViewById(R.id.telephone);
+                         dial(textViewTel.getText().toString());
                     }
                 })
         );
@@ -84,22 +86,22 @@ public class CityselectionActivity extends AppCompatActivity {
                             saveToBaseData(shops);
                             recyclerView.invalidate();
                             Toast toast = Toast.makeText(getApplicationContext(),
-                                "Завантаження Сервер - ОК!", Toast.LENGTH_SHORT);
-                        toast.show();
-                        }
-                        else {
-                            saveToBaseDefaultData();
+                                    "Завантаження Сервер - ОК!", Toast.LENGTH_SHORT);
+                            toast.show();
+                        } else {
                             Toast toast = Toast.makeText(getApplicationContext(),
-                                    "Завантаження DefaultData  - ОК!", Toast.LENGTH_SHORT);
+                                    "Завантаження - не відбулось!", Toast.LENGTH_SHORT);
                             toast.show();
                         }
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<List<Shop>> call, @NonNull Throwable t) {
-
-                        //textView.append("Error occurred while getting request!");
                         t.printStackTrace();
+                        saveToBaseDefaultData();
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Завантаження DefaultData  - ОК!", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
     }
@@ -131,7 +133,8 @@ public class CityselectionActivity extends AppCompatActivity {
     //заполвнив тестовими даними
     private void cleanDBShop() {
         mDatabase.execSQL(ShopContract.ShopEntry.SQL_DROP_SHOPLIST_TABLE);
-        mDatabase.execSQL(ShopContract.ShopEntry.SQL_CREATE_SHOPLIST_TABLE);}
+        mDatabase.execSQL(ShopContract.ShopEntry.SQL_CREATE_SHOPLIST_TABLE);
+    }
 
     private void saveToBaseData(List<Shop> shops) {
         cleanDBShop();
@@ -139,15 +142,16 @@ public class CityselectionActivity extends AppCompatActivity {
             addItem(shop.getName(), shop.getTel());
         }
     }
-    private void saveToBaseDefaultData(){
-            cleanDBShop();
-            addItem("Київська,88","0988467236");
-            addItem("Бульвар Польський 13а","0983995114");
-            addItem("Хлібна,39/19","0971146295");
-            addItem("М-н Станишівський,3/2","0971084756");
-            addItem("Вільський Шлях,14","0985660818");
-            addItem("Івана Мазепи,5","0985751069");
-            addItem("ГАРЯЧА ЛІНІЯ","0800505084");
+
+    private void saveToBaseDefaultData() {
+        cleanDBShop();
+        addItem("Київська,88", "0988467236");
+        addItem("Бульвар Польський 13а", "0983995114");
+        addItem("Хлібна,39/19", "0971146295");
+        addItem("М-н Станишівський,3/2", "0971084756");
+        addItem("Вільський Шлях,14", "0985660818");
+        addItem("Івана Мазепи,5", "0985751069");
+        addItem("ГАРЯЧА ЛІНІЯ", "0800505084");
     }
 
     // виклик дзвінка
