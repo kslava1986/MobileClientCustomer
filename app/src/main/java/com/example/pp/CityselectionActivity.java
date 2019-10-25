@@ -53,10 +53,6 @@ public class CityselectionActivity extends AppCompatActivity {
                         intent.putExtra("address",textViewAddress.getText().toString());
                         intent.putExtra("tel",textViewTel.getText().toString());
                         startActivity(intent);
-
-
-
-                        //dial(textViewTel.getText().toString());
                     }
 
                     @Override

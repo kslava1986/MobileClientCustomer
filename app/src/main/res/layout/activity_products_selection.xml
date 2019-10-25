@@ -18,7 +18,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/pp_pizza" />
-
+    <Button
+        android:id="@+id/button_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical|top"
+        android:layout_margin="20dp"
+        android:background="@drawable/button_main"
+        android:bottomLeftRadius="100dp"
+        android:bottomRightRadius="100dp"
+        android:onClick="buttonClickStart"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:text="Замовлення"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:topLeftRadius="100dp"
+        android:topRightRadius="100dp" />
+    android:textStyle="italic"
+    />
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

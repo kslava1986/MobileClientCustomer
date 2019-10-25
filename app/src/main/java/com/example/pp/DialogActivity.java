@@ -38,6 +38,8 @@ Button btnCallDialog, btnOrderDialog;
         btnOrderDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),ProductsSelectionActivity.class);
+                startActivity(intent);
                 Toast toast = Toast.makeText(getApplicationContext(),
                         "Замовлення On-Line в розробці...", Toast.LENGTH_SHORT);
                 toast.show();
@@ -49,11 +51,5 @@ Button btnCallDialog, btnOrderDialog;
     public void dial(String tel) {
         Uri uri = Uri.parse(String.format("tel:%s", tel));
         startActivity(new Intent(Intent.ACTION_DIAL, uri));
-    }
-    public void setTextViewAddressDialog(TextView textViewAddressItem){
-        textViewAddressDialog.setText(textViewAddressItem.getText().toString());
-    }
-    public void setTextViewTelDialog(TextView textViewTelDialog){
-        textViewAddressDialog.setText(textViewTelDialog.getText().toString());
     }
 }
