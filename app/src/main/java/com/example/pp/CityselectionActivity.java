@@ -20,6 +20,7 @@ import com.example.pp.models.UserInMemoryStore;
 import com.example.pp.rest.NetworkService;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +38,7 @@ public class CityselectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cityselection);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         // создаем объект для создания и управления версиями БД
         // TODO: 19.09.2019 перемістити код у аплікейшн клас
         ShopDBHelper dbHelper = new ShopDBHelper(this);

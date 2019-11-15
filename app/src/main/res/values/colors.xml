@@ -5,4 +5,14 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorButtonStart">#40F11B</color>
     <color name="colorButtonEnd">#2CA213</color>
+    <color name="White">#FFFFFF</color>
+    <color name="Yellow">#FFFF00</color>
+    <color name="Blue">#0000FF</color>
+    <color name="Lawngreen">#7CFC00</color>
+    <color name="Firebrick">#B22222</color>
+    <color name="Silver">#C0C0C0</color>
+    <color name="Red">#F45C36</color>
+
+
+
 </resources>

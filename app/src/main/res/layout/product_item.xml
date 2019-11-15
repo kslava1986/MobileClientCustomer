@@ -3,28 +3,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_margin="0dp"
+    android:padding="0dp">
+<TextView
+    android:id="@+id/item_order_image"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:background="@drawable/pp_pizza"
+    android:layout_margin="10dp"
+    />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" >
+        <TextView
+            android:id="@+id/item_order_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:padding="5dp"/>
+        <TextView
+            android:id="@+id/item_order_description"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:layout_marginBottom="10dp"
+            android:padding="5dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Ціна"
+            android:padding="5dp"/>
+        <TextView
+            android:id="@+id/item_order_price"
+            android:layout_width="30dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:padding="5dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        >
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/item_order_count"
+        android:layout_width="30dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:background="@color/Yellow"
+        android:hint="0"
+        android:padding="5dp"/>
+</LinearLayout>
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="30sp"
-        android:text="Товар"
-        android:textSize="20sp" />
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="30sp"
-        android:layout_marginStart="10dp"
-        android:text="Опис"
-        android:textSize="20sp"/>
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="30sp"
-        android:layout_marginStart="10dp"
-        android:text="Ціна"
-        android:textSize="30sp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+        <Button
+            android:id="@+id/item_order_add"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@color/Lawngreen"
+            android:layout_marginTop="5dp"
+            android:text="+"/>
+
+        <Button
+            android:id="@+id/item_order_del"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@color/Red"
+            android:layout_marginTop="20dp"
+            android:text="-"/>
+    </LinearLayout>
+
+
 
 
 </LinearLayout>
