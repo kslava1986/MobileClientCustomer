@@ -20,6 +20,7 @@ import com.example.pp.models.Product;
 import com.example.pp.models.Shop;
 import com.example.pp.models.Store;
 import com.example.pp.models.UserInMemoryStore;
+import com.example.pp.util.UtilProduct;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,7 +68,7 @@ public class ProductsSelectionActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.product_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new ProductAdapter(this, getAllItems());
+        mAdapter = new ProductAdapter(this, UtilProduct.convertListToProductTO(getAllItems()));
         recyclerView.setAdapter(mAdapter);
     }
 

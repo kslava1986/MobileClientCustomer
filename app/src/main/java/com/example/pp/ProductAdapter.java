@@ -1,7 +1,6 @@
 package com.example.pp;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,17 +9,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.pp.models.Product;
+import com.example.pp.models.to.ProductTO;
 
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private Context mContext;
-    private List<Product> mProducts;
+    private List<ProductTO> mProductsTO;
 
-    public ProductAdapter(Context mContext, List<Product> mProducts) {
+    public ProductAdapter(Context mContext, List<ProductTO> mProductsTO) {
         this.mContext = mContext;
-        this.mProducts = mProducts;
+        this.mProductsTO = mProductsTO;
     }
 
     @NonNull
@@ -32,20 +31,42 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductViewHolder productViewHolder, int position) {
-        Product product = mProducts.get(position);
-        productViewHolder.mName.setText(product.getName());
-        productViewHolder.mDescription.setText(product.getDescription());
-        productViewHolder.mPrice.setText(String.format("%n грн", product.getPrice()));
+    public void onBindViewHolder(@NonNull ProductViewHolder productViewHolder, final int position) {
+        ProductTO productTO = mProductsTO.get(position);
+
+        productViewHolder.mName.setText(productTO.getName());
+        productViewHolder.mDescription.setText(productTO.getDescription());
+        productViewHolder.mPrice.setText(String.format("%n грн", productTO.getPrice()));
+        productViewHolder.mCount.setText(String.valueOf(productTO.getCount()));
+
+        productViewHolder.mAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductTO temp = mProductsTO.get(position);
+                temp.setCount(temp.getCount() + 1);
+
+                notifyItemChanged(position);
+            }
+        });
+
+        productViewHolder.mDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductTO temp = mProductsTO.get(position);
+                temp.setCount(temp.getCount() - 1);
+
+                notifyItemChanged(position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return mProducts.size();
+        return mProductsTO.size();
     }
 
 
-    public  class  ProductViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener{
+    public  class  ProductViewHolder extends  RecyclerView.ViewHolder {
         private TextView mImage;
         private TextView mName;
         private TextView mDescription;
@@ -63,49 +84,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             mCount = itemView.findViewById(R.id.item_order_count);
             mAdd = itemView.findViewById(R.id.item_order_add);
             mDel = itemView.findViewById(R.id.item_order_del);
-
-            mAdd.setOnClickListener(this);
-            mDel.setOnClickListener(this);
-
-        }
-
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.item_order_add:
-                    onAdd();
-                case R.id.item_order_del:
-                    onDel();
-            }
-        }
-
-        void onAdd(){
-
-            String value = this.mCount.getText().toString();
-            int num = getCorrectNum(value);
-            num++;
-            this.mCount.setText(num);
-        }
-        void  onDel(){
-            String value = this.mCount.getText().toString();
-            int num = getCorrectNum(value);
-            num--;
-            if(num<0) {
-                this.mCount.setText(0);
-            } else {
-                this.mCount.setText(num);
-            }
-        }
-        private int getCorrectNum(String value)
-        {
-            try {
-                return  Integer.parseInt(value);
-            }
-            catch (NumberFormatException e)
-            {
-                return 0;
-            }
-
         }
     }
 }

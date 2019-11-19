@@ -84,18 +84,17 @@
         android:layout_margin="10dp">
         <Button
             android:id="@+id/item_order_add"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:background="@color/Lawngreen"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="0dp"
             android:text="+"/>
 
         <Button
             android:id="@+id/item_order_del"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:background="@color/Red"
-            android:layout_marginTop="20dp"
             android:text="-"/>
     </LinearLayout>
 
