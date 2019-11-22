@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.pp.api.TotalCounter;
 import com.example.pp.models.to.ProductTO;
 
 import java.util.List;
@@ -16,10 +17,12 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private Context mContext;
     private List<ProductTO> mProductsTO;
+    private TotalCounter totalCounter;
 
-    public ProductAdapter(Context mContext, List<ProductTO> mProductsTO) {
+    public ProductAdapter(Context mContext, List<ProductTO> mProductsTO, TextView textView) {
         this.mContext = mContext;
         this.mProductsTO = mProductsTO;
+        this.totalCounter = new TotalCounter(textView);
     }
 
     @NonNull
@@ -36,7 +39,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         productViewHolder.mName.setText(productTO.getName());
         productViewHolder.mDescription.setText(productTO.getDescription());
-        productViewHolder.mPrice.setText(String.format("%n грн", productTO.getPrice()));
+        productViewHolder.mPrice.setText(String.format("%.2f грн", productTO.getPrice()));
         productViewHolder.mCount.setText(String.valueOf(productTO.getCount()));
 
         productViewHolder.mAdd.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +47,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             public void onClick(View v) {
                 ProductTO temp = mProductsTO.get(position);
                 temp.setCount(temp.getCount() + 1);
+
+                totalCounter.refresh(mProductsTO);
 
                 notifyItemChanged(position);
             }
@@ -55,6 +60,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 ProductTO temp = mProductsTO.get(position);
                 temp.setCount(temp.getCount() - 1);
 
+                totalCounter.refresh(mProductsTO);
+
                 notifyItemChanged(position);
             }
         });
@@ -63,6 +70,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public int getItemCount() {
         return mProductsTO.size();
+    }
+
+    public void swapCursor(List<ProductTO> newList){
+        mProductsTO = newList;
+
+        if (mProductsTO != null){
+            notifyDataSetChanged();
+        }
     }
 
 

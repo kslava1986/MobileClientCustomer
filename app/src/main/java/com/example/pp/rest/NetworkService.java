@@ -16,6 +16,7 @@ public class NetworkService {
 
 
     private Retrofit mRetrofit;
+
     private NetworkService() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

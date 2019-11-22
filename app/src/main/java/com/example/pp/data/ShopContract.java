@@ -1,9 +1,10 @@
-package com.example.pp;
+package com.example.pp.data;
 
 import android.provider.BaseColumns;
 
 public class ShopContract {
     private ShopContract(){}
+
     public static final class ShopEntry implements BaseColumns{
         public static final String TABLE_NAME = "shopList";
         public static final String COLUMN_NAME = "name";

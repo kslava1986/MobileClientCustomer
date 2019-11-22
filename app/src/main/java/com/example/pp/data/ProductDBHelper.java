@@ -1,29 +1,26 @@
-package com.example.pp;
+package com.example.pp.data;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
-import com.example.pp.ShopContract.*;
 
-public class ShopDBHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "shoplist.db";
-    public static final int DATABASE_VERSION = 3;
+public class ProductDBHelper extends SQLiteOpenHelper {
+    public static final String DATABASE_NAME = "productlist.db";
+    public static final int DATABASE_VERSION = 1;
 
-    public ShopDBHelper(@Nullable Context context) {
+    public ProductDBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(ShopEntry.SQL_CREATE_SHOPLIST_TABLE);
+        db.execSQL(ProductContract.ProductEntry.SQL_CREATE_PRODUCTLIST_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(ShopEntry.SQL_DROP_SHOPLIST_TABLE);
+        db.execSQL(ProductContract.ProductEntry.SQL_DROP_PRODUCTLIST_TABLE);
         onCreate(db);
     }
-
 }

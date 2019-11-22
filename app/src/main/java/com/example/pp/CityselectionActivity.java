@@ -14,9 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pp.Services.ShopsService;
 import com.example.pp.models.Shop;
-import com.example.pp.models.Store;
-import com.example.pp.models.UserInMemoryStore;
 import com.example.pp.rest.NetworkService;
 
 import java.util.List;
@@ -26,12 +25,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.pp.ShopContract.ShopEntry.TABLE_NAME;
+import static com.example.pp.data.ShopContract.ShopEntry.TABLE_NAME;
 
 public class CityselectionActivity extends AppCompatActivity {
-    private SQLiteDatabase mDatabase;
+    private ShopsService mShopService;
     private ShopAdapter mAdapter;
-    private final Store<Shop> store = new UserInMemoryStore();
     RecyclerView recyclerView;
 
     @Override
@@ -41,8 +39,9 @@ public class CityselectionActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         // создаем объект для создания и управления версиями БД
         // TODO: 19.09.2019 перемістити код у аплікейшн клас
-        ShopDBHelper dbHelper = new ShopDBHelper(this);
-        mDatabase = dbHelper.getWritableDatabase();
+
+        mShopService = new ShopsService(this);
+
         loadData();
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.addOnItemTouchListener(
@@ -54,6 +53,10 @@ public class CityselectionActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(),DialogActivity.class);
                         intent.putExtra("address",textViewAddress.getText().toString());
                         intent.putExtra("tel",textViewTel.getText().toString());
+                        intent.putExtra("shopId", "566554564"); //todo
+                        //mShopService.getShopIdByPosition(); //або
+                        //mShopService.getShop(position);
+                        //mShopService.getAllItems().get(position).getId();
                         startActivity(intent);
                     }
 
@@ -65,12 +68,13 @@ public class CityselectionActivity extends AppCompatActivity {
                 })
         );
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new ShopAdapter(this, getAllItems());
+        mAdapter = new ShopAdapter(this, mShopService.getAllItems());
         recyclerView.setAdapter(mAdapter);
         //заповнення бази тестовими даними
-        saveToBaseDefaultData();
+        mShopService.saveToBaseDefaultData();
 
     }
+
 
     private void loadData() {
         NetworkService.getInstance()
@@ -81,7 +85,8 @@ public class CityselectionActivity extends AppCompatActivity {
                     public void onResponse(@NonNull Call<List<Shop>> call, @NonNull Response<List<Shop>> response) {
                         List<Shop> shops = response.body();
                         if (shops != null) {
-                            saveToBaseData(shops);
+                            mShopService.saveToBaseData(shops);
+                            mAdapter.swapCursor(mShopService.getAllItems());
                             recyclerView.invalidate();
                             Toast toast = Toast.makeText(getApplicationContext(),
                                     "Завантаження Сервер - ОК!", Toast.LENGTH_SHORT);
@@ -96,7 +101,7 @@ public class CityselectionActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Call<List<Shop>> call, @NonNull Throwable t) {
                         t.printStackTrace();
-                        saveToBaseDefaultData();
+                        mShopService.saveToBaseDefaultData();
                         Toast toast = Toast.makeText(getApplicationContext(),
                                 "Завантаження DefaultData  - ОК!", Toast.LENGTH_SHORT);
                         toast.show();
@@ -104,53 +109,11 @@ public class CityselectionActivity extends AppCompatActivity {
                 });
     }
 
-    public void addItem(String name, String tel) {
-        if (name.trim().length() == 0) return;
-        // создаем объект для данных
-        ContentValues contentValues = new ContentValues();
-        // получаем данные из полей ввода
-        contentValues.put(ShopContract.ShopEntry.COLUMN_NAME, name);
-        contentValues.put(ShopContract.ShopEntry.COLUMN_TEL, tel);
-        // подключаемся к БД
-        mDatabase.insert(TABLE_NAME, null, contentValues);
-        mAdapter.swapCursor(getAllItems());
-    }
 
-    protected Cursor getAllItems() {
-        return mDatabase.query(
-                TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                ShopContract.ShopEntry.COLUMN_TIMESTAMP + " DESC"
-        );
-    }
 
-    //заполвнив тестовими даними
-    private void cleanDBShop() {
-        mDatabase.execSQL(ShopContract.ShopEntry.SQL_DROP_SHOPLIST_TABLE);
-        mDatabase.execSQL(ShopContract.ShopEntry.SQL_CREATE_SHOPLIST_TABLE);
-    }
 
-    private void saveToBaseData(List<Shop> shops) {
-        cleanDBShop();
-        for (Shop shop : shops) {
-            addItem(shop.getName(), shop.getTel());
-        }
-    }
 
-    private void saveToBaseDefaultData() {
-        cleanDBShop();
-        addItem("Київська,88", "0988467236");
-        addItem("Бульвар Польський 13а", "0983995114");
-        addItem("Хлібна,39/19", "0971146295");
-        addItem("М-н Станишівський,3/2", "0971084756");
-        addItem("Вільський Шлях,14", "0985660818");
-        addItem("Івана Мазепи,5", "0985751069");
-        addItem("ГАРЯЧА ЛІНІЯ", "0800505084");
-    }
+
 
     // виклик дзвінка
     public void dial(String tel) {
