@@ -22,7 +22,7 @@ public class ProductService {
 
     public ProductService(Context context) {
         this.dbHelper = new ProductDBHelper(context);
-//        this.mDatabase = dbHelper.getWritableDatabase();
+        //this.mDatabase = dbHelper.getWritableDatabase();
     }
 
     public void addItem(String name, String description, float price) {

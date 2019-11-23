@@ -7,8 +7,10 @@ import com.example.pp.models.to.ProductTO;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiService {
     @GET("/shops")
@@ -21,5 +23,8 @@ public interface ApiService {
     Call<List<Product>> getAllProducts();
 
     @POST("/order")
-    void sendOrder(int shopId,String tel, List<ProductTO> productTOList);
+    Call<String> sendOrder(@Query("shopId") int shopId,
+                           @Query("tel") String tel,
+                           @Body List<ProductTO> productTOList);
+    // 213.223.2262.22?shopId=2&tel=1111111&{list productTO}
 }
