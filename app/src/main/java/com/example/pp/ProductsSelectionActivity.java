@@ -47,6 +47,7 @@ public class ProductsSelectionActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.product_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.addItemDecoration(new CharacterItemDecoration(50));
         mAdapter = new ProductAdapter(this,
                 productTOList,
                 (TextView) findViewById(R.id.order_total_count));
